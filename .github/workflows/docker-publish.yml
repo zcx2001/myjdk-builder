@@ -47,4 +47,4 @@ jobs:
             RUNNER=github
           tags: |
             zcx2001/myjdk-builder:${{ matrix.tag }}-${{ steps.date.outputs.today }}
-            zcx2001/myjdk-builder:latest-${{ matrix.tag }}
+            zcx2001/myjdk-builder:${{ matrix.tag }}-latest
