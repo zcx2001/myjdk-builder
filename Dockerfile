@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM ubuntu:24.04
 
 ARG JAVA_VER=1.8.0
 ARG RUNNER=local
@@ -6,9 +6,9 @@ ARG RUNNER=local
 ENV DEBIAN_FRONTEND=noninteractive
 
 # 修正中文显示
-ENV LANG en_US.UTF-8
-ENV LANGUAGE en_US:en
-ENV LC_ALL en_US.UTF-8
+ENV LANG=en_US.UTF-8
+ENV LANGUAGE=en_US:en
+ENV LC_ALL=en_US.UTF-8
 
 # 添加maven
 ENV PATH=/opt/apache-maven-3.6.3/bin:$PATH
@@ -16,6 +16,7 @@ ADD maven/apache-maven-3.6.3-bin.tar.gz /opt
 
 RUN if [ "${RUNNER}" != "github" ]; then \
         sed -i -E 's/(archive|security|ports).ubuntu.(org|com)/mirrors.aliyun.com/g' /etc/apt/sources.list; \
+        sed -i -E 's/(archive|security|ports).ubuntu.(org|com)/mirrors.aliyun.com/g' /etc/apt/sources.list.d/ubuntu.sources; \
     fi \    
     && apt-get update && apt-get upgrade -y  \
     && apt-get install -y --no-install-recommends \
